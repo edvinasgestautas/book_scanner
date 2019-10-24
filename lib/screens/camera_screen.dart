@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:book_scanner/models/Book.dart';
 import 'package:book_scanner/screens/book_detail_screen.dart';
 import 'package:book_scanner/services/book_service.dart';
