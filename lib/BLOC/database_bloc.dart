@@ -4,34 +4,31 @@ import 'package:book_scanner/models/Book.dart';
 import 'package:book_scanner/services/database_service.dart';
 
 class BooksBloc {
-  final _clientController = StreamController<List<Book>>.broadcast();
+  final _bookController = StreamController<List<Book>>.broadcast();
 
-  get clients => _clientController.stream;
+  get books => _bookController.stream;
 
   dispose() {
-    _clientController.close();
+    _bookController.close();
   }
 
-  getClients() async {
-    _clientController.sink.add(await DBProvider.db.getAllBooks());
+  getBooks() async {
+    _bookController.sink.add(
+      await DBProvider.db.getAllBooks(),
+    );
   }
 
   BooksBloc() {
-    getClients();
+    getBooks();
   }
 
-  // blockUnblock(Client client) {
-  //   DBProvider.db.blockOrUnblock(client);
-  //   getClients();
-  // }
+  delete(int id) {
+    DBProvider.db.deleteBook(id);
+    getBooks();
+  }
 
-  // delete(int id) {
-  //   DBProvider.db.deleteClient(id);
-  //   getClients();
-  // }
-
-  add(Book client) {
-    DBProvider.db.newBook(client);
-    getClients();
+  add(Book book) {
+    DBProvider.db.newBook(book);
+    getBooks();
   }
 }

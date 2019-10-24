@@ -46,13 +46,11 @@ class _CameraScreenState extends State<CameraScreen> {
   }
 
   void lookup() async {
-    log(barcode);
     Book book = await _bookService.getBookDetails(barcode);
     if (book == null) {
       setState(() {
         barcode = 'Whoopsie, no data about this book online, try another!';
       });
-
       return;
     }
     Navigator.push(
@@ -60,10 +58,10 @@ class _CameraScreenState extends State<CameraScreen> {
       MaterialPageRoute(
         builder: (context) => BookDetailScreen(
           book: book,
+          isFavoriteEnabled: true,
         ),
       ),
     );
-    // log(book.toString());
   }
 
   Future scan() async {
@@ -80,7 +78,7 @@ class _CameraScreenState extends State<CameraScreen> {
       }
     } on FormatException {
       setState(() => this.barcode =
-          'null (User returned using the "back"-button before scanning anything. Result)');
+          'User returned using the "back"-button before scanning anything');
     } catch (e) {
       setState(() => this.barcode = 'Unknown error: $e');
     }

@@ -12,15 +12,23 @@ class HomeScreen extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.camera_alt),
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => CameraScreen()));
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CameraScreen(),
+                ),
+              );
             },
           ),
           IconButton(
             icon: Icon(Icons.star),
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => FavouriteScreen()));
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => FavouriteScreen(),
+                ),
+              );
             },
           )
         ],

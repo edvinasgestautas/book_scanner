@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
-import 'package:flutter/foundation.dart';
 import 'package:book_scanner/models/Book.dart';
 import 'package:http/http.dart' as http;
 
@@ -13,8 +11,10 @@ class BookService {
 
     if (result.statusCode == 200 && result.body != '{}') {
       Map<String, dynamic> jayson = jsonDecode(result.body);
-
-      return Book.fromJson(jayson.values.first);
+      return Book.fromJson(jayson.values
+          .first); // Taking only the first because only one barcode can be sent by the app at a time, even though the API supports multiple
+    } else {
+      return null;
     }
   }
 }

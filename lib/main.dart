@@ -4,17 +4,32 @@ import 'package:book_scanner/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(
+      MyApp(),
+    );
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.purple,
+    return MultiProvider(
+      providers: [
+        Provider.value(
+          value: BooksBloc(),
+        ),
+        StreamProvider<List<Book>>(
+            builder: (context) =>
+                Provider.of<BooksBloc>(context, listen: false).books)
+      ],
+      child: Consumer<BooksBloc>(
+        builder: (context, bloc, child) {
+          return MaterialApp(
+            theme: ThemeData(
+              primarySwatch: Colors.purple,
+            ),
+            home: HomeScreen(),
+          );
+        },
       ),
-      home: HomeScreen(),
     );
   }
 }
