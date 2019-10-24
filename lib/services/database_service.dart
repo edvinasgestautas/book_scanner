@@ -27,7 +27,8 @@ class DBProvider {
           "id INTEGER PRIMARY KEY,"
           "title TEXT,"
           "subtitle TEXT,"
-          "number_of_pages INTEGER)");
+          "number_of_pages INTEGER,"
+          "publish_date TEXT)");
     });
   }
 
@@ -36,9 +37,15 @@ class DBProvider {
     var table = await db.rawQuery("SELECT MAX(id)+1 as id FROM Books");
     int id = table.first["id"];
     var raw = await db.rawInsert(
-        "INSERT Into Books (id,title,subtitle,number_of_pages)"
-        " VALUES (?,?,?,?)",
-        [id, newBook.title, newBook.subtitle, newBook.numberOfPages]);
+        "INSERT Into Books (id,title,subtitle,number_of_pages,publish_date)"
+        " VALUES (?,?,?,?,?)",
+        [
+          id,
+          newBook.title,
+          newBook.subtitle,
+          newBook.numberOfPages,
+          newBook.publishingDate
+        ]);
     return raw;
   }
 
